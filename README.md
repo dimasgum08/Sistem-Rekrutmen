@@ -1,4 +1,5 @@
 # 📦 Aplikasi Manajemen Rekrutmen
+```bash
 
 Aplikasi ini merupakan sistem manajemen rekrutmen berbasis Laravel.
 
@@ -10,14 +11,11 @@ Ikuti langkah-langkah di bawah ini setelah melakukan `git clone`.
 
 ## 1. 📥 Clone Project dari GitHub
 
-```bash
 git clone https://github.com/username/nama-project.git
 cd nama-project
 
-
 # 2. 📦 Instalasi Dependencies
 composer install
-npm install && npm run dev
 cp .env.example .env
 php artisan key:generate
 
@@ -29,9 +27,8 @@ php artisan key:generate
 php artisan migrate:fresh --seed
 php artisan storage:link
 php artisan serve
-```
 
-## 📝 Penggunaan
+## 📝 Login
 
 ### Akun Admin
 Email    : admin@gmail.com
@@ -41,4 +38,4 @@ Password : 1234
 Email    : hrd@gmail.com
 Password : 1234
 
-
+```
