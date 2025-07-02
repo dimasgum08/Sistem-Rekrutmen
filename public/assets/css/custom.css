@@ -1,0 +1,828 @@
+:root{
+    --primary-color: #08428C;
+    --secondary-color: #CFFF00;
+    --primary-color-light: #2e63a5;
+    --primary-color-lighter: #5a88c1;
+    --primary-color-dark: #062d63;
+    --primary-color-darker: #041d3e;
+    --primary-color-hover: #0a50a5;
+    --primary-color-focus: #0d5cc2;
+    --primary-color-bg: #e8f0fa;
+    --primary-color-border: #b3c7e6;
+    --primary-color-text: #ffffff;
+    --primary-color-muted: #7a99c2;
+    --active-color: #f0f4ff;
+    --label-color: #888;
+    --icon-active-color: #08428C;
+}
+
+html, body {
+    overflow-x: hidden;
+    height: 100%;
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+.form-control:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+/* Loader */
+
+.loader-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loader-bounce {
+    display: flex;
+    gap: 10px;
+}
+
+.bounce-circle {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: var(--primary-color, #08428C);
+    animation: bounce 1.2s infinite ease-in-out;
+}
+
+.bounce-circle:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.bounce-circle:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+    0%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+}
+
+.loader-bg.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.pc-sidebar {
+    background-color: var(--primary-color);
+}
+
+.pc-sidebar .card.pc-user-card {
+    margin: 0 15px 15px;
+    box-shadow: none;
+    background: var(--primary-color-bg);
+    border: 1px solid var(--primary-color-border);
+}
+
+.pc-sidebar .pc-navbar > .pc-item.active > .pc-link:after {
+    background: none ;
+}
+.m-header .b-brand h5 {
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    color: var(--primary-color-text);
+    font-weight: 600;
+}
+
+/* ===== Label Styling ===== */
+.pc-caption {
+    padding: 10px 20px;
+}
+.pc-label {
+    color: var(--primary-color-text) !important;
+    font-weight: 600 !important;
+    font-size: 0.75rem  !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05rem !important;
+}
+
+/* ===== List Item ===== */
+.pc-item {
+    transition: all 0.3s ease-in-out;
+}
+.pc-sidebar .pc-link {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    color: var(--primary-color-text);
+    text-decoration: none;
+    border-radius: 6px;
+}
+.pc-sidebar .pc-micon {
+    color: var(--primary-color-text) !important;
+}
+.pc-sidebar .pc-link:hover {
+    background-color: var(--primary-color-light);
+    color: #fff;
+}
+.pc-sidebar .pc-link:hover .pc-micon i {
+    color: #fff;
+}
+
+
+/* ===== Active State ===== */
+.pc-item.active .pc-link {
+    background-color: var(--active-color) !important;
+    color: var(--primary-color) !important;
+    font-weight: 600 !important;
+}
+
+.pc-item.active .pc-link .pc-micon i {
+    color: var(--icon-active-color);
+}
+
+/* Button */
+.btn-secondary {
+    border-radius: 0.375rem !important;
+}
+
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-border);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-color-light);
+    border-color: var(--primary-color-light);
+    color: var(--active-color);
+}
+
+.btn-primary:focus,
+.btn-primary.focus {
+    outline: none;
+    box-shadow: 0 0 0 0.25rem var(--primary-shadow);
+}
+
+.btn-primary:active,
+.btn-primary.active,
+.show > .btn-primary.dropdown-toggle {
+    background-color: var(--primary-focus);
+    border-color: var(--primary-focus);
+    color: #fff;
+}
+
+.btn-primary:disabled,
+.btn-primary.disabled {
+    background-color: var(--primary-color-light);
+    border-color: var(--primary-color-light);
+    color: var(--primary-color-bg);
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.btn-outline-primary {
+    background-color: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color-light);
+    border-color: var(--primary-color-light);
+    color: var(--active-color);
+}
+
+.btn-outline-primary:focus,
+.btn-outline-primary.focus {
+    outline: none;
+    box-shadow: 0 0 0 0.25rem var(--primary-shadow);
+}
+
+.btn-outline-primary:active,
+.btn-outline-primary.active,
+.show > .btn-outline-primary.dropdown-toggle {
+    background-color: var(--primary-focus);
+    border-color: var(--primary-focus);
+    color: #fff;
+}
+
+.btn-outline-primary:disabled,
+.btn-outline-primary.disabled {
+    background-color: transparent;
+    border-color: var(--primary-disabled);
+    color: var(--primary-disabled);
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.ti-spin {
+    animation: ti-spin 5s linear infinite;
+    display: inline-block;
+}
+
+@keyframes ti-spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.btn-square {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.25rem;
+}
+
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+.auth-main {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    /* Lebih tajam, lebih banyak biru */
+    background: linear-gradient(120deg, rgba(8, 66, 140, 0.15) 0%, #ffffff 60%);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Optional efek pola halus */
+.auth-main::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(8, 66, 140, 0.08) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 0;
+}
+
+.auth-wrapper {
+    position: relative;
+    z-index: 1; /* pastikan form berada di atas background pola */
+}
+
+.auth-main .auth-wrapper .auth-form .card.register {
+    max-width: 700px !important;
+}
+
+.navbar .nav-link.nav-underline.active {
+    border-bottom: 2px solid white;
+    font-weight: 600;
+}
+
+.navbar .nav-link:hover {
+    opacity: 0.9;
+}
+
+.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+.notif-dropdown {
+    width: 350px;
+    max-height: 400px;
+    overflow-y: auto;
+    border-radius: 0.5rem;
+}
+
+.notif-item:hover {
+    background-color: #f8f9fa;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.notif-item strong {
+    font-size: 0.95rem;
+}
+
+.notif-item .text-muted {
+    font-size: 0.8rem;
+    line-height: 1.2;
+}
+
+.navbar .user-nav-link img {
+    object-fit: cover;
+    border: 2px solid #fff;
+}
+
+@media (max-width: 991.98px) {
+    .navbar .user-nav-link .text-start {
+        display: none;
+    }
+}
+
+.vertical-layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 136px);
+}
+
+.footer-vertical {
+    flex-shrink: 0;
+}
+
+.breadcrumb-vertical {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 0;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+/* Breadcrumb list styling (optional) */
+.breadcrumb-vertical .breadcrumb {
+    margin-bottom: 0;
+    background: transparent;
+    padding: 0;
+}
+
+/* Responsive: semua jadi rata kiri di ukuran HP */
+@media (max-width: 576px) {
+    .breadcrumb-vertical {
+        flex-direction: column;
+        align-items: flex-start; /* agar semuanya rata kiri */
+        text-align: left;
+    }
+
+    .breadcrumb-vertical h5 {
+        width: 100%;
+    }
+
+    .breadcrumb-vertical nav {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .dropdown-menu.notification-dropdown {
+        position: fixed !important;
+        top: 70px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 95vw !important;
+        max-width: 400px;
+        height: auto;
+        z-index: 1050;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .dropdown-menu.notification-dropdown::before {
+        display: none !important;
+    }
+}
+
+
+/* Faltpickr */
+
+.flatpickr-calendar {
+    border-radius: 1rem !important; /* atau sesuaikan: 12px, 16px, dst */
+    overflow: hidden; /* agar anak-anaknya ikut lengkung */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* opsional: bayangan */
+    border: 1px solid #ddd; /* opsional: tambahkan border */
+}
+
+/* Warna latar header bulan dan weekdays */
+.flatpickr-months {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.flatpickr-weekdays {
+    background-color: var(--primary-color);
+}
+
+.flatpickr-weekday {
+    color: white !important; /* Ubah warna teks Sun, Mon, dst */
+}
+
+.flatpickr-monthDropdown-months {
+    color: white !important;
+    border: none;
+    box-shadow: none;
+}
+
+/* Opsi bulan saat dropdown dibuka */
+.flatpickr-monthDropdown-months option {
+    background-color: white;
+    color: black;
+}
+
+/* Fokus atau saat disorot */
+.flatpickr-monthDropdown-months:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month {
+    color: black;
+    background-color: white;
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month:hover,
+.flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month:focus,
+.flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month:active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Tombol Next/Prev */
+.flatpickr-prev-month svg,
+.flatpickr-next-month svg {
+    fill: white; /* Ubah warna panah ke putih */
+    transition: fill 0.2s ease;
+}
+
+.flatpickr-prev-month:hover svg,
+.flatpickr-next-month:hover svg {
+    fill: white !important; /* Tetap putih saat hover */
+}
+
+.flatpickr-day.selected,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange {
+    background-color: var(--primary-color) !important; /* Biru */
+    color: white !important;
+    border-radius: 50% !important;
+}
+
+/* Hover efek (opsional agar tidak override selected) */
+.flatpickr-day:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+}
+
+.flatpickr-day.today {
+    border-color: var(--primary-color);
+    background-color: rgba(75, 56, 179, .1);
+
+}
+
+.flatpickr-day.today.selected {
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+}
+
+/* Hari yang dipilih */
+.flatpickr-day.selected {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    border-radius: 50% !important;
+}
+
+/* Hover efek */
+.flatpickr-day:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+}
+
+/* Hari yang tidak aktif (disable atau bukan bulan ini) */
+.flatpickr-day.flatpickr-disabled,
+.flatpickr-day.prevMonthDay,
+.flatpickr-day.nextMonthDay {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.flatpickr-months .flatpickr-month {
+    color: white !important;
+}
+
+/* Panah bulan dan tahun menjadi putih */
+.flatpickr-prev-month svg,
+.flatpickr-next-month svg,
+.flatpickr-current-month .flatpickr-monthDropdown-months svg,
+.flatpickr-current-month .numInputWrapper svg {
+    fill: white;
+    transition: fill 0.2s ease;
+}
+
+/* Saat hover juga tetap putih */
+.flatpickr-prev-month:hover svg,
+.flatpickr-next-month:hover svg,
+.flatpickr-current-month .flatpickr-monthDropdown-months:hover svg,
+.flatpickr-current-month .numInputWrapper:hover svg {
+    fill: white !important;
+}
+
+/* Tengah range (harus biru, tanpa border-radius) */
+/* Tanggal mulai */
+.flatpickr-day.startRange {
+  background: var(--primary-color) !important;
+  color: white !important;
+  border-top-left-radius: 999px !important;
+  border-bottom-left-radius: 999px !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  z-index: 2;
+}
+
+/* Tanggal akhir */
+.flatpickr-day.endRange {
+  background: var(--primary-color) !important;
+  color: white !important;
+  border-top-right-radius: 999px !important;
+  border-bottom-right-radius: 999px !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  z-index: 2;
+}
+
+/* Jika hanya satu tanggal dipilih */
+.flatpickr-day.startRange.endRange {
+  border-radius: 50% !important;
+}
+
+/* Hover effect (optional, tetap biru) */
+.flatpickr-day:hover {
+  background: var(--primary-color) !important;
+  color: white !important;
+}
+
+.choices.is-invalid .choices__inner {
+    border-color: #dc3545 !important;  /* Merah seperti Bootstrap */
+    padding-right: 2.25rem;            /* Jaga padding biar tidak kegeser */
+    background-image: none;            /* Hilangkan icon bawaan jika perlu */
+}
+
+.choices.is-invalid:focus,
+.choices.is-invalid .choices__inner:focus {
+    box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+}
+
+.form-switch .form-check-input:checked {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+/* Transisi smooth saat toggle */
+.form-switch .form-check-input {
+    transition: background-color 0.25s ease-in-out, border-color 0.25s ease-in-out;
+}
+
+/* Tambahan untuk efek focus (optional) */
+.form-switch .form-check-input:focus {
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25); /* Sesuaikan dengan --bs-primary */
+    border-color: var(--primary-color);
+}
+
+.ck.ck-list__item .ck-button.ck-on {
+    background: var(--primary-color) !important;
+    color: var(--active-color) !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.active > .page-link {
+    color: var(--active-color) !important;
+    border: 1px solid var(--primary-color) !important;
+    background-color: var(--primary-color) !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+/* Pagination */
+/* Container pagination */
+.pagination {
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: 0.25rem;
+    justify-content: center;
+}
+
+/* Tombol default */
+.pagination li {
+    margin: 0 2px;
+}
+
+.pagination li a,
+.pagination li span {
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    padding: 6px 12px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: all 0.2s ease-in-out;
+    display: inline-block;
+}
+
+/* Hover state */
+.pagination li a:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Disabled state */
+.pagination li.disabled span,
+.pagination li.disabled a {
+    color: #aaa;
+    border-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Active page */
+.pagination li.active span {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+@media (max-width: 767.98px) {
+    #jobDetailCard {
+        display: none;
+    }
+}
+
+
+.document .nav-tabs .nav-link {
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border: 1px solid transparent;
+    color: #495057;
+}
+
+.document .nav-tabs .nav-link.active {
+    background-color: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color) var(--primary-color) #fff;
+    font-weight: 500;
+}
+
+.document .tab-pane {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease-in-out;
+}
+
+.document .tab-pane.show.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.document-wrapper {
+    width: 100%;
+    overflow: auto;
+}
+
+.document-wrapper iframe {
+    width: 100%;
+    min-width: 100%;
+    height: 500px;
+    border: none;
+}
+
+/* Untuk tampilan mobile */
+@media (max-width: 768px) {
+    .document-wrapper iframe {
+        height: 400px;
+        min-width: 100%;
+    }
+}
+
+.form-check-input[type="radio"] {
+    accent-color: var(--primary-color);
+}
+
+.form-check-input[type="radio"]:checked + .form-check-label {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+.form-check-input:checked {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+/* Noti */
+/* Container utama */
+.notif-head {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: #f8f9fa;
+    text-decoration: none;
+    border-color: solid 1px var(--primary-color);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Efek hover */
+.notif-head:hover {
+    background-color: #e2e6ea;
+    transform: scale(1.05); /* Sedikit membesar saat hover */
+}
+
+/* Ikon bel */
+.notif-icon i {
+    font-size: 22px;
+    color: #343a40;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Efek hover pada ikon */
+.notif-head:hover .notif-icon i {
+    color: var(--primary-color); /* Hijau */
+    transform: rotate(-10deg);
+}
+
+/* Badge jumlah notifikasi */
+.notif-badge {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    transform: translate(50%, -50%);
+    background-color: rgb(121, 0, 0);
+    color: #fff;
+    font-size: 11px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    padding: 4px 6px;
+    border-radius: 999px;
+    box-shadow: 0 0 0 2px #fff;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover badge jika mau beda juga */
+.notif-head:hover .notif-badge {
+    background-color: rgb(121, 0, 0);
+}
+
+.hovering {
+    transition: 0.2s ease-in-out;
+}
+.hovering:hover {
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.hover-effect {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-effect:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+    .card-border {
+        height: 4px;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        border-radius: 0 0 0.5rem 0.5rem;
+    }
+
+.btn-link-primary {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.btn-link-primary:hover {
+    color: var(--primary-color);
+}
