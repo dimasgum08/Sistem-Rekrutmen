@@ -19,7 +19,7 @@ class CandidateController extends Controller
         $candidates = Candidate::where('user_id', getInfoLogin()->id)->with(['jobVacancy', 'user'])->orderBy('created_at', 'desc')->get();
         $interview = $candidates->filter(fn($item) => $item->status === 'Interview');
         $rejected = $candidates->filter(fn($item) => $item->status === 'Reject');
-        $accepted = $candidates->filter(fn($item) => $item->status === 'Accepted');
+        $accepted = $candidates->filter(fn($item) => $item->status === 'Accept');
         $data = [
             'title' => 'Lamaran Saya',
             'breadcrumbs' => [
