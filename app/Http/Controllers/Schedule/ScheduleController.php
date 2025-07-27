@@ -45,6 +45,26 @@ class ScheduleController extends Controller
             return isset($candidate->interview->schedule) ? Carbon::parse($candidate->interview->schedule)->locale('id')->translatedFormat('d F Y') : '-';
         })->editColumn('user.image', function ($candidate) {
             return isset($candidate->user->image) ? asset('storage/images/users/' . $candidate->user->image) : null;
+        })
+       ->filterColumn('user.name', function ($query, $keyword) {
+            $query->whereHas('user', fn($q) =>
+                $q->whereRaw("LOWER(name) LIKE ?", ["%" . strtolower($keyword) . "%"])
+            );
+        })
+        ->filterColumn('job_vacancy.title', function ($query, $keyword) {
+            $query->whereHas('jobVacancy', fn($q) =>
+                $q->whereRaw("LOWER(title) LIKE ?", ["%" . strtolower($keyword) . "%"])
+            );
+        })
+        ->filterColumn('job_vacancy.placement', function ($query, $keyword) {
+            $query->whereHas('jobVacancy', fn($q) =>
+                $q->whereRaw("LOWER(placement) LIKE ?", ["%" . strtolower($keyword) . "%"])
+            );
+        })
+        ->filterColumn('interview.schedule', function ($query, $keyword) {
+            $query->whereHas('interview', fn($q) =>
+                $q->whereRaw("DATE_FORMAT(schedule, '%d %M %Y') LIKE ?", ["%" . $keyword . "%"])
+            );
         })->make();
     }
 

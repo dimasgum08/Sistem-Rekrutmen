@@ -14,15 +14,20 @@
         </div>
     </div>
     <div class="text-end">
-        @if ($item->status == 'Interview')
+        @if ($item->status == 'Interview' || $item->status == 'Accept')
             <button
                 class="btn btn-outline-primary btn-sm mb-2 btn-detail"
                 data-position="{{ $item->jobVacancy->title }}"
                 data-placement="{{ $item->jobVacancy->placement }}"
-                data-schedule="{{ \Carbon\Carbon::parse($item->date)->locale('id')->translatedFormat('d F Y H:i') }}"
-                data-location="{{ $item->location }}"
-                data-interviewer="{{ $item->interviewer }}"
-                data-note="{{ $item->note }}"
+                data-schedule="{{ \Carbon\Carbon::parse($item->interview->schedule)->locale('id')->translatedFormat('d F Y H:i') }}"
+                data-location="{{ $item->interview->location }}"
+                data-interviewer="{{ $item->interview->interviewer }}"
+                data-note="{{ $item->interview->note }}"
+                data-status="{{ $item->status }}"
+                data-ethic="{{ $item->criteria->ethics ?? '' }}"
+                data-discipline="{{ $item->criteria->discipline ?? '' }}"
+                data-accuracy="{{ $item->criteria->accuracy  ?? '' }}"
+                data-cv="{{ $item->criteria->cv ?? '' }}"
             >
                 Lihat Jadwal
             </button>

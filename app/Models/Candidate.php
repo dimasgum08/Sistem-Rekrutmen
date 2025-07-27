@@ -34,4 +34,9 @@ class Candidate extends Model
     {
         return $this->hasOne(Interview::class);
     }
+
+    public function criteria()
+    {
+        return $this->hasOne(Criteria::class);
+    }
 }

@@ -20,7 +20,7 @@ __initDataTable = initDataTable({
         {
             title: 'Nama',
             data: 'user.name',
-            name: 'name',
+            name: 'user.name',
             mRender: (data, type, row) => {
                 return `
                     <div class="d-flex align-items-center">
@@ -37,8 +37,8 @@ __initDataTable = initDataTable({
         },
         {
             title: 'Posisi',
-            data: null,
-            name: null,
+            data: 'job_vacancy.title',
+            name: 'job_vacancy.title',
             mRender: (data, type, row) => {
                 return `
                 <div>
@@ -49,8 +49,8 @@ __initDataTable = initDataTable({
         },
         {
             title: 'Tanggal Interview',
-            data: null,
-            name: null,
+            data: 'interview.schedule',
+            name: 'interview.schedule',
             mRender: (data, type, row) => {
                 return `
                 <div>
@@ -59,7 +59,6 @@ __initDataTable = initDataTable({
                 </div>`
             }
         },
-
         {
             title: 'Status',
             data: 'status',

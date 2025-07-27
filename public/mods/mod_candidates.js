@@ -20,7 +20,7 @@ __initDataTable = initDataTable({
         {
             title: 'Nama',
             data: 'user.name',
-            name: 'name',
+            name: 'user.name',
             mRender: (data, type, row) => {
                 return `
                     <div class="d-flex align-items-center">
@@ -38,7 +38,7 @@ __initDataTable = initDataTable({
         {
             title: 'Lowongan Kerja',
             data: 'job_vacancy.title',
-            name: 'title',
+            name: 'job_vacancy.title',
         },
         {
             title: 'Status',
@@ -111,35 +111,51 @@ $(function () {
     });
 
     $('.btn-detail').on('click', function () {
-        console.log('oi');
         const position = $(this).data('position');
         const schedule = $(this).data('schedule');
         const location = $(this).data('location');
         const placement = $(this).data('placement');
         const interviewer = $(this).data('interviewer');
         const note = $(this).data('note');
+        const status = $(this).data('status');
+
+        const ethic = $(this).data('ethic');
+        const discipline = $(this).data('discipline');
+        const accuracy = $(this).data('accuracy');
+        const cv = $(this).data('cv');
+
+        let extraDetail = '';
+        if (status === 'Accept') {
+            extraDetail = `
+                <li class="list-group-item"><strong>Etika:</strong> ${ethic}</li>
+                <li class="list-group-item"><strong>Disiplin:</strong> ${discipline}</li>
+                <li class="list-group-item"><strong>Ketepatan:</strong> ${accuracy}</li>
+                <li class="list-group-item"><strong>CV:</strong> ${cv}</li>
+            `;
+        }
 
         const modalHTML = `
-        <div class="modal fade" id="dynamicInterviewModal" tabindex="-1" aria-labelledby="modalDetailLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content shadow">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Detail Jadwal Interview</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-                    </div>
-                    <div class="modal-body">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><strong>Posisi:</strong> ${position}</li>
-                            <li class="list-group-item"><strong>Penempatan:</strong> ${placement}</li>
-                            <li class="list-group-item"><strong>Jadwal:</strong> ${schedule}</li>
-                            <li class="list-group-item"><strong>Lokasi Interview:</strong> ${location}</li>
-                            <li class="list-group-item"><strong>Interviewer:</strong> ${interviewer}</li>
-                            <li class="list-group-item"><strong>Catatan:</strong> ${note}</li>
-                        </ul>
+            <div class="modal fade" id="dynamicInterviewModal" tabindex="-1" aria-labelledby="modalDetailLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content shadow">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Detail Jadwal Interview</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>Posisi:</strong> ${position}</li>
+                                <li class="list-group-item"><strong>Penempatan:</strong> ${placement}</li>
+                                <li class="list-group-item"><strong>Jadwal:</strong> ${schedule}</li>
+                                <li class="list-group-item"><strong>Lokasi Interview:</strong> ${location}</li>
+                                <li class="list-group-item"><strong>Interviewer:</strong> ${interviewer}</li>
+                                <li class="list-group-item"><strong>Catatan:</strong> ${note}</li>
+                                ${extraDetail}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         `;
 
         $('body').append(modalHTML);

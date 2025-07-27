@@ -47,6 +47,16 @@ class CandidateController extends Controller
     {
         return DataTables::of(Candidate::query()->with(['jobVacancy', 'user']))->editColumn('user.image', function ($candidate) {
             return isset($candidate->user->image) ? asset('storage/images/users/' . $candidate->user->image) : null;
+        })
+        ->filterColumn('user.name', function ($query, $keyword) {
+            $query->whereHas('user', function ($q) use ($keyword) {
+                $q->whereRaw("LOWER(name) LIKE ?", ["%" . strtolower($keyword) . "%"]);
+            });
+        })
+        ->filterColumn('job_vacancy.title', function ($query, $keyword) {
+            $query->whereHas('jobVacancy', function ($q) use ($keyword) {
+                $q->whereRaw("LOWER(title) LIKE ?", ["%" . strtolower($keyword) . "%"]);
+            });
         })->make();
     }
 

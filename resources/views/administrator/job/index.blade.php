@@ -2,6 +2,7 @@
 
 @section('content')
 
+
     <div class="col-12 text-end mb-3">
         <a href="{{ route('apps.job-vacancies.create') }}" class="btn btn-primary"><i class="ti ti-plus me-2"></i>Tambah Lowongan</a>
     </div>
