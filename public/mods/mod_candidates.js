@@ -82,10 +82,15 @@ __initDataTable = initDataTable({
 $(function () {
     function toggleInterviewFields() {
         const selected = $('#statusModal input[name="status"]:checked').val();
-        if (selected === 'Interview') {
+       if (selected === 'Interview') {
             $('#interviewFields').stop(true, true).slideDown();
+            $('#rejectFields').stop(true, true).slideUp();
+        } else if (selected === 'Reject') {
+            $('#rejectFields').stop(true, true).slideDown();
+            $('#interviewFields').stop(true, true).slideUp();
         } else {
             $('#interviewFields').stop(true, true).slideUp();
+            $('#rejectFields').stop(true, true).slideUp();
         }
     }
 

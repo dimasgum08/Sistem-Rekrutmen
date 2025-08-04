@@ -80,10 +80,6 @@
                         <input class="form-check-input @error('status') is-invalid @enderror" type="radio" name="status" id="statusReject" value="Reject" {{ old('status', $candidate->status) == 'Reject' ? 'checked' : '' }}>
                         <label class="form-check-label" for="statusReject">Tolak</label>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input @error('status') is-invalid @enderror" type="radio" name="status" id="statusConsider" value="Consider" {{ old('status', $candidate->status) == 'Consider' ? 'checked' : '' }}>
-                        <label class="form-check-label" for="statusConsider">Dipertimbangkan</label>
-                    </div>
                     @error('status')
                         <div class="form-text text-danger d-block">{{ $message }}</div>
                     @enderror

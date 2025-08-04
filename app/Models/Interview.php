@@ -19,4 +19,9 @@ class Interview extends Model
     {
         return $this->belongsTo(Candidate::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,'interviewer_id','id');
+    }
 }

@@ -11,9 +11,13 @@
             <h6 class="mb-1">{{ $item->jobVacancy->title }}</h6>
             <div class="text-muted small">{{ $item->jobVacancy->placement }}</div>
             <div class="text-muted small">Applied on 18 Agustus 2022</div>
+            @if($item->status == 'Reject')
+                <div class="text-muted small"><i class="text-danger">{{ $item->note }}</i></div>
+            @endif
         </div>
     </div>
     <div class="text-end">
+        {{-- @dd($item) --}}
         @if ($item->status == 'Interview' || $item->status == 'Accept')
             <button
                 class="btn btn-outline-primary btn-sm mb-2 btn-detail"
@@ -21,7 +25,7 @@
                 data-placement="{{ $item->jobVacancy->placement }}"
                 data-schedule="{{ \Carbon\Carbon::parse($item->interview->schedule)->locale('id')->translatedFormat('d F Y H:i') }}"
                 data-location="{{ $item->interview->location }}"
-                data-interviewer="{{ $item->interview->interviewer }}"
+                data-interviewer="{{ $item->interview->user->name ?? '' }}"
                 data-note="{{ $item->interview->note }}"
                 data-status="{{ $item->status }}"
                 data-ethic="{{ $item->criteria->ethics ?? '' }}"

@@ -139,6 +139,9 @@
                             <div class="fw-bold">{{ auth()->user()->name }}</div>
                             <small class="text-muted">{{ auth()->user()->roles[0]->display_name ?? 'User' }}</small>
                         </li>
+                        @if (getInfoLogin()->roles[0]->name == 'Applicant')
+                        <li><a href="{{ route('edit-profile') }}" class="dropdown-item"> <i class="ti ti-user"></i> Profile</a></li>
+                        @endif
                         <li>
                             <hr class="dropdown-divider">
                         </li>

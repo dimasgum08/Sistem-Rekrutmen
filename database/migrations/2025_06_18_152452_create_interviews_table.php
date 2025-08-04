@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('candidate_id');
             $table->dateTime('schedule');
-            $table->string('location'); // atau link Google Meet/Zoom
-            $table->string('interviewer')->nullable();
+            $table->string('location');
+            $table->unsignedBigInteger('interviewer_id')->nullable();
             $table->text('note')->nullable();
             $table->timestamps();
             $table->foreign('candidate_id')->references('id')->on('candidates')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('interviewer_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

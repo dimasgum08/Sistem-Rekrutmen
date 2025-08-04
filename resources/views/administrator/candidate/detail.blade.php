@@ -169,7 +169,6 @@
                         {{ $message }}
                     @enderror
                 </div>
-
                 <div id="interviewFields" style="display: none;">
                     <div class="mb-3">
                         <label for="schedule" class="form-label">Tanggal Interview <span class="text-danger">*</span></label>
@@ -191,11 +190,23 @@
                     </div>
                     <div class="mb-3">
                         <label for="interviewer" class="form-label">Interviewer</label>
-                        <input type="text" class="form-control" name="interviewer" id="interviewer" value="{{ old('interviewer', $interview->interviewer ?? null )  }}">
+                        <select name="interviewer_id" id="interviewer" class="form-select">
+                            <option value="">Pilih Interviewer</option>
+                            @foreach ($users as $user)
+                                <option value="{{ $user->id }}" {{ old('interviewer_id', $interview->interviewer_id ?? null) == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="note" class="form-label">Catatan</label>
                         <textarea class="form-control" name="note" id="note" rows="3">{{ old('note', $interview->note ?? null )  }}</textarea>
+                    </div>
+                </div>
+
+                <div id="rejectFields" style="display: none;">
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Catatan</label>
+                        <textarea class="form-control" name="description" id="description" rows="3">{{ old('description', $candidate->note ?? null )  }}</textarea>
                     </div>
                 </div>
             </div>

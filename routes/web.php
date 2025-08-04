@@ -25,6 +25,9 @@ Route::middleware('guest')->group(function () {
 Route::prefix('apps')->middleware('auth')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('apps.dashboard');
     Route::get('get-data-job', [DashboardController::class, 'getDataJob']);
+    Route::get('edit-profile', [UserController::class, 'editProfile'])->name('edit-profile');
+    Route::post('update-profile', [UserController::class, 'updateProfile'])->name('update-profile');
+    Route::post('update-password', [UserController::class, 'updatePassword'])->name('update-password');
 
     Route::prefix('users')->middleware('can:read-users')->group(function () {
         Route::get('', [UserController::class, 'index'])->name('apps.users');

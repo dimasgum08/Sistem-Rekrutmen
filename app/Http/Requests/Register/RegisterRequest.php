@@ -32,10 +32,8 @@ class RegisterRequest extends FormRequest
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
             'password_confirmation' => 'required|min:6',
-            'gender' => 'required',
             'telp' => 'required',
             'address' => 'required',
-            'picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ];
     }
 
@@ -49,9 +47,6 @@ class RegisterRequest extends FormRequest
             'password.required' => 'Password harus diisi',
             'password_confirmation.required' => 'Konfirmasi password harus diisi',
             'password_confirmation.same' => 'Konfirmasi password tidak sesuai',
-            'picture.image' => 'File harus berupa image',
-            'picture.mimes' => 'Image harus berupa png, jpg atau jpeg',
-            'picture.max' => 'Ukuran image maks 1MB',
             'gender.required' => 'Jenis kelamin wajib dipilih.',
             'address.required' => 'Alamat wajib diisi.',
             'telp.required' => 'Nomor telepon wajib diisi.',

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Candidate;
 use App\Models\Interview;
 use App\Models\Notification;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -16,7 +17,7 @@ class CandidateController extends Controller
     {
         $isAdmin = getInfoLogin()->roles[0]->name === 'Admin' || getInfoLogin()->roles[0]->name === 'HRD';
 
-        $candidates = Candidate::where('user_id', getInfoLogin()->id)->with(['jobVacancy', 'user'])->orderBy('created_at', 'desc')->get();
+        $candidates = Candidate::where('user_id', getInfoLogin()->id)->with(['jobVacancy', 'user', 'interview'])->orderBy('created_at', 'desc')->get();
         $interview = $candidates->filter(fn($item) => $item->status === 'Interview');
         $rejected = $candidates->filter(fn($item) => $item->status === 'Reject');
         $accepted = $candidates->filter(fn($item) => $item->status === 'Accept');
@@ -80,6 +81,9 @@ class CandidateController extends Controller
                 ]
             ],
             'candidate' => $candidate,
+            'users' => User::whereHas('roles', function ($q) {
+                $q->where('name', '!=', 'Applicant');
+            })->get(),
             'interview' => Interview::where('candidate_id', $candidate->id)->first(),
             'otherCandidate' => Candidate::where('job_vacancy_id', $candidate->job_vacancy_id)->where('id', '!=', $candidate->id)->with('user')->whereIn('status',['Process'])->get(),
         ];
@@ -94,7 +98,8 @@ class CandidateController extends Controller
             'schedule' => 'required_if:status,Interview',
             'location' => 'required_if:status,Interview',
             'note' => 'nullable',
-            'interviewer' => 'nullable',
+            'interviewer_id' => 'nullable',
+            'description' => 'nullable',
         ], [
             'status.required' => 'Pilih status pelamar',
             'schedule.required_if' => 'Pilih jadwal interview',
@@ -104,6 +109,7 @@ class CandidateController extends Controller
         try {
             $candidate->update([
                 'status' => $request->status,
+                'note' => $request->status === 'Reject' ? $request->description : null,
             ]);
 
             if ($request->status === 'Interview') {
@@ -114,7 +120,7 @@ class CandidateController extends Controller
                         'schedule' => Carbon::parse($request->schedule),
                         'location' => $request->location,
                         'note' => $request->note,
-                        'interviewer' => $request->interviewer,
+                        'interviewer_id' => $request->interviewer_id,
                     ]);
                     $this->sendNotification($candidate, 'Interview', true);
                 } else {
@@ -123,11 +129,15 @@ class CandidateController extends Controller
                         'schedule' => Carbon::parse($request->schedule),
                         'location' => $request->location,
                         'note' => $request->note,
-                        'interviewer' => $request->interviewer,
+                        'interviewer_id' => $request->interviewer_id,
                     ]);
                     $this->sendNotification($candidate, 'Interview', false);
                 }
             } else {
+                $interview = Interview::where('candidate_id', $candidate->id)->first();
+                if ($interview) {
+                    $interview->delete();
+                }
                 $this->sendNotification($candidate, $request->status);
             }
 

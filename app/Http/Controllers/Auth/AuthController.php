@@ -60,7 +60,7 @@ class AuthController extends Controller
     public function store(RegisterRequest $request)
     {
         try {
-            $applicant = Applicant::create($request->only(['name', 'email', 'telp', 'address', 'gender']));
+            $applicant = Applicant::create($request->only(['name', 'email', 'telp', 'address']));
             $request->merge(['password' => Hash::make($request->password), 'applicant_id' => $applicant->id]);
             $user = User::create($request->only(['name', 'email', 'username', 'password', 'applicant_id']));
             $user->assignRole('Applicant');

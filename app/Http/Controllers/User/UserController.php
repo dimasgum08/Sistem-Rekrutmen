@@ -36,7 +36,7 @@ class UserController extends Controller
 
     public function getData()
     {
-        if(getInfoLogin()->roles[0]->name == 'Admin') {
+        if (getInfoLogin()->roles[0]->name == 'Admin') {
             $query = User::with(['roles']);
         } else {
             $query = User::with(['roles'])->whereHas('roles', function ($q) {
@@ -80,9 +80,9 @@ class UserController extends Controller
     {
         try {
             $filename = null;
-            if($request->hasFile('picture')) {
+            if ($request->hasFile('picture')) {
                 $file = $request->file('picture');
-                $filename = 'Users_'. rand(0, 999999999) .'_'. rand(0, 999999999) .'.'. $file->getClientOriginalExtension();
+                $filename = 'Users_' . rand(0, 999999999) . '_' . rand(0, 999999999) . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('storage/images/users'), $filename);
             }
 
@@ -92,7 +92,7 @@ class UserController extends Controller
             }
 
             $request->merge(['image' => $filename, 'password' => Hash::make($request->password), 'applicant_id' => $applicant ? $applicant->id : null]);
-            $user = User::create($request->only('name', 'email', 'password', 'applicant_id','image'));
+            $user = User::create($request->only('name', 'email', 'password', 'applicant_id', 'image'));
             $user->assignRole($request->roles);
             return redirect()->route('apps.users')->with(['message' => 'Pengguna berhasil ditambahkan', 'type' => 'success']);
         } catch (\Exception $e) {
@@ -131,18 +131,18 @@ class UserController extends Controller
     public function update(UserRequest $request, User $user)
     {
         try {
-            if($request->hasFile('picture')) {
+            if ($request->hasFile('picture')) {
                 $file = $request->file('picture');
-                $filename = 'Users_'. rand(0, 999999999) .'_'. rand(0, 999999999) .'.'. $file->getClientOriginalExtension();
+                $filename = 'Users_' . rand(0, 999999999) . '_' . rand(0, 999999999) . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('storage/images/users'), $filename);
-                if($user->image) {
-                    File::delete(public_path('storage/images/users/'. $user->image));
+                if ($user->image) {
+                    File::delete(public_path('storage/images/users/' . $user->image));
                 }
             } else {
                 $filename = $user->image;
             }
             if ($user->applicant_id) {
-                $user->applicant->update($request->only('name', 'email', 'telp','address', 'gender'));
+                $user->applicant->update($request->only('name', 'email', 'telp', 'address', 'gender'));
             }
             $data = [
                 'name' => $request->name,
@@ -166,13 +166,85 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         try {
-            if($user->image) {
-                File::delete(public_path('storage/images/users/'. $user->image));
+            if ($user->image) {
+                File::delete(public_path('storage/images/users/' . $user->image));
             }
             $user->delete();
             return $this->successResponse('Berhasil menghapus data pengguna');
         } catch (\Exception $e) {
             return $this->exceptionResponse($e);
+        }
+    }
+
+    public function editProfile()
+    {
+        $data = [
+            'title' => 'Edit Profil',
+            'mods' => 'user',
+            'breadcrumbs' => [
+                [
+                    'title' => 'Dashboard',
+                    'url' => route('apps.dashboard')
+                ],
+                [
+                    'title' => 'Edit Profil',
+                    'is_active' => true
+                ],
+            ],
+            'user' => getInfoLogin(),
+        ];
+
+        return view('administrator.profile.index', $data);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'telp' => 'required|string|max:20',
+            'address' => 'required|string',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:1024',
+
+            'old_password' => 'nullable|required_with:new_password|current_password',
+            'new_password' => 'nullable|required_with:old_password|same:confirm_password|min:6',
+            'confirm_password' => 'nullable|required_with:new_password|same:new_password',
+        ], [
+            'old_password.current_password' => 'Password lama tidak sesuai.',
+            'new_password.same' => 'Konfirmasi password tidak cocok.',
+            'confirm_password.same' => 'Konfirmasi password tidak cocok.',
+        ]);
+
+        try {
+            $user = auth()->user();
+            $applicant = Applicant::findOrFail($user->applicant_id);
+            $applicant->update([
+                'name' => $request->name,
+                'telp' => $request->telp,
+                'address' => $request->address,
+            ]);
+
+            $updateUserData = ['name' => $request->name];
+
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $filename = 'User_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('storage/images/users'), $filename);
+
+                if ($user->image && File::exists(public_path('storage/images/users/' . $user->image))) {
+                    File::delete(public_path('storage/images/users/' . $user->image));
+                }
+
+                $updateUserData['image'] = $filename;
+            }
+            if ($request->filled('new_password')) {
+                $updateUserData['password'] = Hash::make($request->new_password);
+            }
+
+            $user->update($updateUserData);
+
+            return redirect()->back()->with(['message' => 'Profil berhasil diperbarui', 'type' => 'success']);
+        } catch (\Exception $e) {
+            return redirect()->back()->with(['message' => 'Terjadi kesalahan: ' . $e->getMessage(), 'type' => 'error']);
         }
     }
 }

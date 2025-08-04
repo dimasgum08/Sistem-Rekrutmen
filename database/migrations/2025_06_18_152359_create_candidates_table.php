@@ -18,6 +18,7 @@ return new class extends Migration
             $table->enum('status', ['Process', 'Interview', 'Accept', 'Reject'])->default('Process');
             $table->date('interview_date')->nullable();
             $table->string('interview_link')->nullable();
+            $table->text('note')->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('job_vacancy_id')->references('id')->on('job_vacancies')->onDelete('cascade')->onUpdate('cascade');
