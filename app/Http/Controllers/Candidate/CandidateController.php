@@ -44,9 +44,15 @@ class CandidateController extends Controller
     }
 
 
-    public function getData()
+    public function getData(Request $request)
     {
-        return DataTables::of(Candidate::query()->with(['jobVacancy', 'user']))->editColumn('user.image', function ($candidate) {
+        $query = Candidate::query()->with(['jobVacancy', 'user']);
+
+         if ($request->has('status') && $request->status && $request->status != '') {
+            $query->where('status', $request->status);
+        }
+
+        return DataTables::of($query)->editColumn('user.image', function ($candidate) {
             return isset($candidate->user->image) ? asset('storage/images/users/' . $candidate->user->image) : null;
         })
         ->filterColumn('user.name', function ($query, $keyword) {

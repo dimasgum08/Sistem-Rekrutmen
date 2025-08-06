@@ -79,6 +79,20 @@ __initDataTable = initDataTable({
     callback: () => {}
 })
 
+var filterEl = document.querySelectorAll('*[data-toggle="filter"]')
+
+for (const f of filterEl) {
+    f.addEventListener('change', function() {
+        const currUrl = __initDataTable.ajax.url().split('?')
+        let searchParams = new URLSearchParams(currUrl.length > 0 ? currUrl[1] : '')
+        searchParams.set(this.getAttribute('name'), this.value)
+
+        console.log(`${currUrl[0]}?${searchParams.toString()}`);
+        __initDataTable.ajax.url(`${currUrl[0]}?${searchParams.toString()}`)
+        __initDataTable.ajax.reload()
+    })
+}
+
 $(function () {
     function toggleInterviewFields() {
         const selected = $('#statusModal input[name="status"]:checked').val();
