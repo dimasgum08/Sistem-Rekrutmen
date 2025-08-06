@@ -39,7 +39,7 @@ class ScheduleController extends Controller
 
     public function getData()
     {
-        return DataTables::of(Candidate::query()->with(['user','jobVacancy','interview'])->whereHas('interview', function($query){
+        return DataTables::of(Candidate::query()->with(['user','jobVacancy','interview.user'])->whereHas('interview', function($query){
             $query->where('schedule', '!=', null);
         }))->editColumn('interview.schedule', function ($candidate) {
             return isset($candidate->interview->schedule) ? Carbon::parse($candidate->interview->schedule)->locale('id')->translatedFormat('d F Y') : '-';

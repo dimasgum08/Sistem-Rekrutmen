@@ -87,7 +87,7 @@ __initDataTable = initDataTable({
             sClass: 'text-center nowrap',
             mRender: (data, type, row, meta) => {
                 var render = ``
-                render += `<button class="btn btn-sm btn-outline-primary btn-square btn-detail" data-user="${row.user.name}" data-email="${row.user.email}" data-placement="${row.job_vacancy.placement}" data-position="${row.job_vacancy.title}" data-schedule="${row.interview?.schedule ?? '-'}" data-location="${row.interview?.location ?? '-'}" data-interviewer="${row.interview?.interviewer ?? '-'}" data-note="${row.interview?.note ?? '-'}"><i class="ti ti-calendar-event"></i></button>`
+                render += `<button class="btn btn-sm btn-outline-primary btn-square btn-detail" data-user="${row.user.name}" data-email="${row.user.email}" data-placement="${row.job_vacancy.placement}" data-position="${row.job_vacancy.title}" data-schedule="${row.interview?.schedule ?? '-'}" data-location="${row.interview?.location ?? '-'}" data-interviewer="${row.interview?.user.name ?? '-'}" data-note="${row.interview?.note ?? '-'}"><i class="ti ti-calendar-event"></i></button>`
                 // if(PERMISSIONS.includes('delete-users') && row?.roles[0]?.name != 'Admin') {
                     render += `<a href="${ BASE_URL }/apps/schedules/${data}/evaluations" class="btn btn-sm mx-1 btn-outline-primary btn-square" data-toggle="delete" title="Evaluasi" data-id="${data}"><i class="ti ti-clipboard-check"></i></a>`
                 // }
